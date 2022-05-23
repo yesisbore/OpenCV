@@ -21,3 +21,26 @@ C:\Users\coil4\OneDrive\바탕 화면\OpenCV\Example01\Example01\obj\Debug\Examp
 C:\Users\coil4\OneDrive\바탕 화면\OpenCV\Example01\Example01\obj\Debug\Example01.csproj.CopyComplete
 C:\Users\coil4\OneDrive\바탕 화면\OpenCV\Example01\Example01\obj\Debug\Example01.exe
 C:\Users\coil4\OneDrive\바탕 화면\OpenCV\Example01\Example01\obj\Debug\Example01.pdb
+C:\OpenCV\C#\Example01\Example01\bin\Debug\dll\x86\OpenCvSharpExtern.dll
+C:\OpenCV\C#\Example01\Example01\bin\Debug\dll\x86\opencv_videoio_ffmpeg455.dll
+C:\OpenCV\C#\Example01\Example01\bin\Debug\dll\x64\OpenCvSharpExtern.dll
+C:\OpenCV\C#\Example01\Example01\bin\Debug\dll\x64\opencv_videoio_ffmpeg455_64.dll
+C:\OpenCV\C#\Example01\Example01\bin\Debug\Example01.exe.config
+C:\OpenCV\C#\Example01\Example01\bin\Debug\Example01.exe
+C:\OpenCV\C#\Example01\Example01\bin\Debug\Example01.pdb
+C:\OpenCV\C#\Example01\Example01\bin\Debug\OpenCvSharp.dll
+C:\OpenCV\C#\Example01\Example01\bin\Debug\System.Buffers.dll
+C:\OpenCV\C#\Example01\Example01\bin\Debug\System.Memory.dll
+C:\OpenCV\C#\Example01\Example01\bin\Debug\System.Numerics.Vectors.dll
+C:\OpenCV\C#\Example01\Example01\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\OpenCV\C#\Example01\Example01\bin\Debug\OpenCvSharp.xml
+C:\OpenCV\C#\Example01\Example01\bin\Debug\System.Buffers.xml
+C:\OpenCV\C#\Example01\Example01\bin\Debug\System.Memory.xml
+C:\OpenCV\C#\Example01\Example01\bin\Debug\System.Numerics.Vectors.xml
+C:\OpenCV\C#\Example01\Example01\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\OpenCV\C#\Example01\Example01\obj\Debug\Example01.csproj.AssemblyReference.cache
+C:\OpenCV\C#\Example01\Example01\obj\Debug\Example01.csproj.SuggestedBindingRedirects.cache
+C:\OpenCV\C#\Example01\Example01\obj\Debug\Example01.csproj.CoreCompileInputs.cache
+C:\OpenCV\C#\Example01\Example01\obj\Debug\Example01.csproj.CopyComplete
+C:\OpenCV\C#\Example01\Example01\obj\Debug\Example01.exe
+C:\OpenCV\C#\Example01\Example01\obj\Debug\Example01.pdb
