@@ -10,7 +10,17 @@
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
       "DisplayName": "기타 파일",
       "ColorIndex": -1
+    },
+    "92ae5f95-b3c4-48f4-a51c-e7cf57b739bd": {
+      "ProjectGuid": "92ae5f95-b3c4-48f4-a51c-e7cf57b739bd",
+      "DisplayName": "Solution Items",
+      "ColorIndex": 1
+    },
+    "271d4842-c9d6-41ad-ad58-8881ba2d2d05": {
+      "ProjectGuid": "271d4842-c9d6-41ad-ad58-8881ba2d2d05",
+      "DisplayName": "Examp02_Image",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 3
 }
