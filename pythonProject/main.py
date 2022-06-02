@@ -77,26 +77,73 @@ import numpy as np
 # cv2.destroyAllWindows()
 
 # 이미지 연결
-imageSrc01 = "C:/OpenCV/Image/one.jpg"
-imageSrc02 = "C:/OpenCV/Image/two.jpg"
-imageSrc03 = "C:/OpenCV/Image/three.jpg"
-imageSrc04 = "C:/OpenCV/Image/four.jpg"
+# imageSrc01 = "C:/OpenCV/Image/one.jpg"
+# imageSrc02 = "C:/OpenCV/Image/two.jpg"
+# imageSrc03 = "C:/OpenCV/Image/three.jpg"
+# imageSrc04 = "C:/OpenCV/Image/four.jpg"
+#
+# one = cv2.imread(imageSrc01)
+# two = cv2.imread(imageSrc02)
+# three = cv2.imread(imageSrc03)
+# four = cv2.imread(imageSrc04)
+#
+# horizontal1 = np.full((50, one.shape[1],3),[0,0,0], dtype=np.uint8)
+# horizontal2 = np.full((50, two.shape[1],3),[0,0,0], dtype=np.uint8)
+#
+# left = cv2.vconcat((one,horizontal1,three))
+# right = np.vstack((two,horizontal2,four))
+#
+# vertical = np.full((left.shape[0],50,3),0,dtype=np.uint8)
+#
+# dst = cv2.hconcat((left,vertical,right))
+#
+# cv2.imshow("dst",dst)
+# cv2.waitKey()
+# cv2.destroyAllWindows()
 
-one = cv2.imread(imageSrc01)
-two = cv2.imread(imageSrc02)
-three = cv2.imread(imageSrc03)
-four = cv2.imread(imageSrc04)
+# 도형 그리기
+# img = np.zeros((768,1366,3),dtype= np.uint8)
+#
+# cv2.line(img,(100,100), (1200,100), (0,0,255), 3, cv2.LINE_AA)
+# cv2.circle(img, (300,300), 50, (0,255,0), cv2.FILLED, cv2.LINE_4)
+# cv2.rectangle(img, (500,200), (1000,400), (255,0,0), 5, cv2.LINE_8)
+# cv2.ellipse(img, (1200,300), (100,50), 0, 90, 180, (255,255,0),2 )
+#
+# pts1 = np.array([[[100,500],[300,500],[200,600]],[[400,500],[500,500],[600,700]]])
+# pts2 = np.array([[700,500],[800,500],[700,600]])
+# cv2.polylines(img,pts1,True,(0,255,255),2)
+# cv2.fillPoly(img,[pts2],(255,0,255),cv2.LINE_AA)
+#
+# cv2.putText(img, "OpenCV", (900,600), cv2.FONT_HERSHEY_COMPLEX | cv2.FONT_ITALIC, 2, (255,255,255),3)
+#
+# cv2.imshow("Img",img)
+# cv2.waitKey()
+# cv2.destroyAllWindows()
 
-horizontal1 = np.full((50, one.shape[1],3),[0,0,0], dtype=np.uint8)
-horizontal2 = np.full((50, two.shape[1],3),[0,0,0], dtype=np.uint8)
+# 트랙바
+windowName = "Pallete"
 
-left = cv2.vconcat((one,horizontal1,three))
-right = np.vstack((two,horizontal2,four))
+def onChangeBlue(pos):
+    global bool
+    b = pos
+    cv2.imshow(windowName,createImage(b,g,r))
 
-vertical = np.full((left.shape[0],50,3),0,dtype=np.uint8)
+def createImage(b,g,r):
+    return np.full((500,500,3),(b,g,r),dtype=np.uint8)
 
-dst = cv2.hconcat((left,vertical,right))
+b,g,r = 0,0,0
+cv2.namedWindow(windowName)
+cv2.createTrackbar("Blue",windowName,55,255,onChangeBlue)
+cv2.createTrackbar("Green",windowName,0,255,lambda x:x)
+cv2.createTrackbar("Red",windowName,0,255,lambda x:x)
 
-cv2.imshow("dst",dst)
-cv2.waitKey()
+while True:
+    g = cv2.getTrackbarPos("Green",windowName)
+    r = cv2.getTrackbarPos("Red",windowName)
+
+    cv2.imshow(windowName,createImage(b,g,r))
+    if cv2.waitKey(33) & 0xFF == ord('q'):
+        break
+
 cv2.destroyAllWindows()
+
