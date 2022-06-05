@@ -9,6 +9,11 @@ namespace Example01
 {
     internal class Image
     {
+        const string imgPath01 = "C:/OpenCV/Image/Image01.png";
+        const string imgPath02 = "C:/OpenCV/Image/Image02.png";
+        const string imgPath03 = "C:/OpenCV/Image/Image03.png";
+        const string imgPath04 = "C:/OpenCV/Image/Image04.png";
+        const string apple = "C:/OpenCV/Image/apple.jpg";
 
         static void Main(string[] args)
         {
@@ -17,7 +22,10 @@ namespace Example01
             //Camera();
             //ImageMerge();
             //DrawShape();
-            TrackBar();
+            //TrackBar();
+            //ImageTransform();
+            //HueDetection();
+            Binary();
         }
 
         private static void ImageShow()
@@ -183,6 +191,55 @@ namespace Example01
                 Cv2.ImShow("Pallete",src);
                 if(Cv2.WaitKey(33)== 'q') break;
             }
+            Cv2.DestroyAllWindows();
+        }
+
+        private static void ImageTransform()
+        {
+            Mat src = Cv2.ImRead(imgPath01);
+            Mat dst = new Mat(src.Size(),MatType.CV_8UC1);
+            Cv2.CvtColor(src,dst,ColorConversionCodes.BGR2GRAY);
+            
+            Cv2.ImShow("dst",dst);
+            Cv2.WaitKey(0);
+            Cv2.DestroyAllWindows();
+        }
+
+        private static void HueDetection()
+        {
+            Mat src = Cv2.ImRead(apple);
+            Mat hsv = new Mat(src.Size(),MatType.CV_8UC3);
+            Mat lowerRed = new Mat(src.Size(),MatType.CV_8UC3);
+            Mat upperRed = new Mat(src.Size(),MatType.CV_8UC3);
+            Mat addedRed = new Mat(src.Size(),MatType.CV_8UC3);
+            Mat dst = new Mat(src.Size(),MatType.CV_8UC3);
+
+            Cv2.CvtColor(src,hsv,ColorConversionCodes.BGR2HSV);
+
+            Cv2.InRange(hsv, new Scalar(0,100,100), new Scalar(5,255,255),lowerRed);
+            Cv2.InRange(hsv, new Scalar(170,100,100), new Scalar(179,255,255),upperRed);
+            Cv2.AddWeighted(lowerRed,1.0,upperRed,1.0,0.0,addedRed);
+
+            Cv2.BitwiseAnd(hsv,hsv,dst,addedRed);
+            Cv2.CvtColor(dst,dst,ColorConversionCodes.HSV2BGR);
+
+            Cv2.ImShow("HueDetection",dst);
+            Cv2.WaitKey(0);
+            Cv2.DestroyAllWindows();
+        }
+
+        private static void Binary()
+        {
+            Mat src = Cv2.ImRead(apple);
+            Mat gray = new Mat (src.Size(),MatType.CV_8UC1);
+            Mat binary = new Mat (src.Size(),MatType.CV_8UC1);
+
+            Cv2.CvtColor(src, gray,ColorConversionCodes.BGR2GRAY);
+            //Cv2.Threshold(gray,binary,127,255,ThresholdTypes.Otsu);
+            Cv2.AdaptiveThreshold(gray,binary,255,AdaptiveThresholdTypes.GaussianC,ThresholdTypes.Binary,25,5);
+
+            Cv2.ImShow("Binary",binary);
+            Cv2.WaitKey(0);
             Cv2.DestroyAllWindows();
         }
     }

@@ -1,6 +1,12 @@
 import cv2
 import numpy as np
 
+imgSrc01 = "C:/OpenCV/Image/Image01.png"
+imgSrc02 = "C:/OpenCV/Image/Image02.png"
+imgSrc03 = "C:/OpenCV/Image/Image03.png"
+imgSrc04 = "C:/OpenCV/Image/Image04.png"
+apple = "C:/OpenCV/Image/apple.jpg"
+
 # 기초
 # print(cv2.__version__)
 
@@ -121,29 +127,63 @@ import numpy as np
 # cv2.destroyAllWindows()
 
 # 트랙바
-windowName = "Pallete"
+# windowName = "Pallete"
+#
+# def onChangeBlue(pos):
+#     global bool
+#     b = pos
+#     cv2.imshow(windowName,createImage(b,g,r))
+#
+# def createImage(b,g,r):
+#     return np.full((500,500,3),(b,g,r),dtype=np.uint8)
+#
+# b,g,r = 0,0,0
+# cv2.namedWindow(windowName)
+# cv2.createTrackbar(" ",windowName,55,255,onChangeBlue)
+# cv2.createTrackbar("Green",windowName,0,255,lambda x:x)
+# cv2.createTrackbar("Red",windowName,0,255,lambda x:x)
+#
+# while True:
+#     g = cv2.getTrackbarPos("Green",windowName)
+#     r = cv2.getTrackbarPos("Red",windowName)
+#
+#     cv2.imshow(windowName,createImage(b,g,r))
+#     if cv2.waitKey(33) & 0xFF == ord('q'):
+#         break
+#
+# cv2.destroyAllWindows()
 
-def onChangeBlue(pos):
-    global bool
-    b = pos
-    cv2.imshow(windowName,createImage(b,g,r))
+# 색상공간변형
+# src = cv2.imread(imgSrc03)
+# dst = cv2.cvtColor(src,cv2.COLOR_BGR2HSV)
+#
+# cv2.imshow("dst",dst)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
-def createImage(b,g,r):
-    return np.full((500,500,3),(b,g,r),dtype=np.uint8)
+# Hue공간 색상 검출
+# src = cv2.imread(apple)
+# hsv = cv2.cvtColor(src,cv2.COLOR_BGR2HSV)
+#
+# h,s,v = cv2.split(hsv)
+#
+# red = cv2.inRange(hsv,(0,100,100),(20,255,255))
+# green = cv2.inRange(hsv,(31,100,100),(70,255,255))
+# mixColor = cv2.addWeighted(red,1.0,green,1.0,0.0)
+#
+# dst = cv2.bitwise_and(hsv,hsv,mask=mixColor)
+# dst = cv2.cvtColor(dst,cv2.COLOR_HSV2BGR)
+#
+# cv2.imshow("HsvDetect",dst)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
-b,g,r = 0,0,0
-cv2.namedWindow(windowName)
-cv2.createTrackbar("Blue",windowName,55,255,onChangeBlue)
-cv2.createTrackbar("Green",windowName,0,255,lambda x:x)
-cv2.createTrackbar("Red",windowName,0,255,lambda x:x)
+# 이진화
+src = cv2.imread(apple)
+#_,binary = cv2.threshold(src,126,255,cv2.THRESH_BINARY)
+gray = cv2.cvtColor(src,cv2.COLOR_BGR2GRAY)
+binary = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,33,-5);
 
-while True:
-    g = cv2.getTrackbarPos("Green",windowName)
-    r = cv2.getTrackbarPos("Red",windowName)
-
-    cv2.imshow(windowName,createImage(b,g,r))
-    if cv2.waitKey(33) & 0xFF == ord('q'):
-        break
-
+cv2.imshow('Binary',binary)
+cv2.waitKey(0)
 cv2.destroyAllWindows()
-
