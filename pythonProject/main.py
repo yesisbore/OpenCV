@@ -179,11 +179,32 @@ apple = "C:/OpenCV/Image/apple.jpg"
 # cv2.destroyAllWindows()
 
 # 이진화
-src = cv2.imread(apple)
-#_,binary = cv2.threshold(src,126,255,cv2.THRESH_BINARY)
-gray = cv2.cvtColor(src,cv2.COLOR_BGR2GRAY)
-binary = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,33,-5);
+# src = cv2.imread(apple)
+# #_,binary = cv2.threshold(src,126,255,cv2.THRESH_BINARY)
+# gray = cv2.cvtColor(src,cv2.COLOR_BGR2GRAY)
+# binary = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,33,-5);
+#
+# cv2.imshow('Binary',binary)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
-cv2.imshow('Binary',binary)
+# 블러
+# src = cv2.imread(apple)
+#
+# dst = cv2.bilateralFilter(src,100,33,11,borderType=cv2.BORDER_ISOLATED);
+#
+# cv2.imshow("dst",dst);
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+# 이미지 축소
+
+src = cv2.imread(imgSrc04)
+dst = src.copy();
+
+for i in range(3):
+    dst = cv2.pyrDown(dst)
+
+cv2.imshow("dst",dst)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

@@ -25,7 +25,9 @@ namespace Example01
             //TrackBar();
             //ImageTransform();
             //HueDetection();
-            Binary();
+            //Binary();
+            //Blur();
+            ImageTransformation();
         }
 
         private static void ImageShow()
@@ -239,6 +241,30 @@ namespace Example01
             Cv2.AdaptiveThreshold(gray,binary,255,AdaptiveThresholdTypes.GaussianC,ThresholdTypes.Binary,25,5);
 
             Cv2.ImShow("Binary",binary);
+            Cv2.WaitKey(0);
+            Cv2.DestroyAllWindows();
+        }
+
+        private static void Blur()
+        {
+            Mat src = Cv2.ImRead(apple);
+            Mat dst = new Mat(src.Size(),MatType.CV_8UC3);
+
+            Cv2.GaussianBlur(src,dst,new Size(9,9),3,3,BorderTypes.Isolated);
+
+            Cv2.ImShow("dst",dst);
+            Cv2.WaitKey(0);
+            Cv2.DestroyAllWindows();
+        }
+
+        private static void ImageTransformation()
+        {
+            Mat src = Cv2.ImRead(imgPath03);
+            Mat dst = new Mat (src.Size(), MatType.CV_8UC3);
+
+            Cv2.PyrUp(src,dst,new Size(src.Width*2+1, src.Height*2-1));
+
+            Cv2.ImShow("dst",dst);
             Cv2.WaitKey(0);
             Cv2.DestroyAllWindows();
         }
