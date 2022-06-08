@@ -1,3 +1,5 @@
+import math
+
 import cv2
 import numpy as np
 
@@ -198,12 +200,59 @@ apple = "C:/OpenCV/Image/apple.jpg"
 # cv2.destroyAllWindows()
 
 # 이미지 축소
+# src = cv2.imread(imgSrc04)
+# dst = src.copy();
+#
+# for i in range(3):
+#     dst = cv2.pyrDown(dst)
+#
+# cv2.imshow("dst",dst)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
-src = cv2.imread(imgSrc04)
-dst = src.copy();
+# 이미지 회전
+# src = cv2.imread(imgSrc04)
+#
+# height,width,_ = src.shape
+# center = (width/2,height/2)
+# angle = 45
+# scale = 0.5
+# matrix = cv2.getRotationMatrix2D(center,angle,scale)
+#
+# radians = math.radians(angle)
+# sin = math.sin(radians)
+# cos = math.cos(radians)
+# boundW = int((height*scale*abs(sin))+(width*scale*abs(cos)))
+# boundH = int((height*scale*abs(cos))+(width*scale*abs(sin)))
+#
+# matrix[0,2] += ((boundW/2)-center[0])
+# matrix[1,2] += ((boundH/2)-center[1])
+#
+# dst = cv2.warpAffine(src,matrix,(boundW,boundH))
+#
+# cv2.imshow("dst",dst)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
-for i in range(3):
-    dst = cv2.pyrDown(dst)
+# 원근변환
+# src = cv2.imread(apple)
+# height, width, _ = src.shape
+#
+# srcPts = np.array([[0,0],[0,height],[width,height],[width,0]],dtype=np.float32)
+# dstPts = np.array([[100,100],[0,height-100],[width-100,height-100],[width-100,0]],dtype=np.float32)
+#
+# M = cv2.getPerspectiveTransform(srcPts,dstPts)
+# dst = cv2.warpPerspective(src,M,(width,height),borderValue=(255,255,255))
+#
+# cv2.imshow("dst",dst)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+# 모폴로지 침식
+src = cv2.imread(apple,cv2.IMREAD_GRAYSCALE)
+
+kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5),anchor=(-1,-1))
+dst = cv2.erode(src,kernel,iterations=3)
 
 cv2.imshow("dst",dst)
 cv2.waitKey(0)

@@ -27,7 +27,10 @@ namespace Example01
             //HueDetection();
             //Binary();
             //Blur();
-            ImageTransformation();
+            //ImageTransformation();
+            //Rotate();
+            //AffineTransform();
+            MorpDilate();
         }
 
         private static void ImageShow()
@@ -263,6 +266,62 @@ namespace Example01
             Mat dst = new Mat (src.Size(), MatType.CV_8UC3);
 
             Cv2.PyrUp(src,dst,new Size(src.Width*2+1, src.Height*2-1));
+
+            Cv2.ImShow("dst",dst);
+            Cv2.WaitKey(0);
+            Cv2.DestroyAllWindows();
+        }
+
+        private static void Rotate()
+        {
+            Mat src = Cv2.ImRead(apple);
+            Mat dst = new Mat();
+
+            Cv2.Flip(src,dst,FlipMode.Y);
+            Mat matrix = Cv2.GetRotationMatrix2D(new Point2f(src.Width/2,src.Height/2),90.0,1.0);
+
+            Cv2.WarpAffine(dst,dst,matrix,new Size(src.Width,src.Height));
+
+            Cv2.ImShow("dst",dst);
+            Cv2.WaitKey(0);
+            Cv2.DestroyAllWindows();
+        }
+
+        private static void AffineTransform()
+        {
+            Mat src = Cv2.ImRead(apple);
+            Mat dst = new Mat();
+
+            List<Point2f> srcPts = new List<Point2f>()
+            {
+                new Point2f(0.0f,0.0f),
+                new Point2f(0.0f,src.Height),
+                new Point2f(src.Width,src.Height)
+            };
+            List<Point2f> dstPts = new List<Point2f>()
+            {
+                new Point2f(300.0f,300.0f),
+                new Point2f(300.0f,src.Height),
+                new Point2f(src.Width - 400.0f,src.Height- 200.0f)
+            };
+            Mat M = Cv2.GetAffineTransform(srcPts,dstPts);
+
+            Cv2.WarpAffine(
+                src,dst,M,new Size(src.Width,src.Height),
+                borderValue: new Scalar(127,127,127,0));
+
+            Cv2.ImShow("dst",dst);
+            Cv2.WaitKey(0);
+            Cv2.DestroyAllWindows();
+        }
+
+        private static void MorpDilate()
+        {
+            Mat src = Cv2.ImRead(apple,ImreadModes.Grayscale);
+            Mat dst = new Mat();
+
+            Mat kernal = Cv2.GetStructuringElement(MorphShapes.Cross,new Size(7,7));
+            Cv2.Dilate(src,dst,kernal,new Point(-1,-1),3,BorderTypes.Reflect101,new Scalar(0));
 
             Cv2.ImShow("dst",dst);
             Cv2.WaitKey(0);
