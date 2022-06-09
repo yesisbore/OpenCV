@@ -30,7 +30,8 @@ namespace Example01
             //ImageTransformation();
             //Rotate();
             //AffineTransform();
-            MorpDilate();
+            //MorpDilate();
+            MorpHitMiss();
         }
 
         private static void ImageShow()
@@ -322,6 +323,21 @@ namespace Example01
 
             Mat kernal = Cv2.GetStructuringElement(MorphShapes.Cross,new Size(7,7));
             Cv2.Dilate(src,dst,kernal,new Point(-1,-1),3,BorderTypes.Reflect101,new Scalar(0));
+
+            Cv2.ImShow("dst",dst);
+            Cv2.WaitKey(0);
+            Cv2.DestroyAllWindows();
+        }
+        private static void MorpHitMiss()
+        {
+            Mat src = Cv2.ImRead(apple,ImreadModes.Grayscale);
+            Mat dst = new Mat();
+
+            Mat kernel = Mat.Zeros(new Size(7,7),MatType.CV_8UC1);
+            kernel[0,7,0,1] = Mat.Ones(new Size(1,7),MatType.CV_8UC1);
+            kernel[0,1,0,7] = Mat.Ones(new Size(7,1),MatType.CV_8UC1);
+
+            Cv2.MorphologyEx(src,dst,MorphTypes.HitMiss, kernel, iterations:10);
 
             Cv2.ImShow("dst",dst);
             Cv2.WaitKey(0);

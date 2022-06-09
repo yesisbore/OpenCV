@@ -249,10 +249,26 @@ apple = "C:/OpenCV/Image/apple.jpg"
 # cv2.destroyAllWindows()
 
 # 모폴로지 침식
-src = cv2.imread(apple,cv2.IMREAD_GRAYSCALE)
+# src = cv2.imread(apple,cv2.IMREAD_GRAYSCALE)
+#
+# kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5),anchor=(-1,-1))
+# dst = cv2.erode(src,kernel,iterations=3)
+#
+# cv2.imshow("dst",dst)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
-kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5),anchor=(-1,-1))
-dst = cv2.erode(src,kernel,iterations=3)
+# 모폴로지 히트미스
+src = cv2.imread(apple,cv2.IMREAD_GRAYSCALE)
+_, binary = cv2.threshold(src,127,255,cv2.THRESH_BINARY)
+
+kernel = np.array([[1,0,0,0,1],
+                   [0,1,0,1,0],
+                   [0,0,1,0,1],
+                   [0,1,0,1,0],
+                   [1,0,0,0,1]])
+
+dst = cv2.morphologyEx(binary,cv2.MORPH_HITMISS,kernel,iterations=1)
 
 cv2.imshow("dst",dst)
 cv2.waitKey(0)
