@@ -14,6 +14,8 @@ namespace Example01
         const string imgPath03 = "C:/OpenCV/Image/Image03.png";
         const string imgPath04 = "C:/OpenCV/Image/Image04.png";
         const string apple = "C:/OpenCV/Image/apple.jpg";
+        const string dog = "C:/OpenCV/Image/dog.jpg";
+        const string chess = "C:/OpenCV/Image/chess.png";
 
         static void Main(string[] args)
         {
@@ -31,7 +33,9 @@ namespace Example01
             //Rotate();
             //AffineTransform();
             //MorpDilate();
-            MorpHitMiss();
+            //MorpHitMiss();
+            //EdgeSobel();
+            ContourDetection();
         }
 
         private static void ImageShow()
@@ -338,6 +342,54 @@ namespace Example01
             kernel[0,1,0,7] = Mat.Ones(new Size(7,1),MatType.CV_8UC1);
 
             Cv2.MorphologyEx(src,dst,MorphTypes.HitMiss, kernel, iterations:10);
+
+            Cv2.ImShow("dst",dst);
+            Cv2.WaitKey(0);
+            Cv2.DestroyAllWindows();
+        }
+
+        private static void EdgeSobel()
+        {
+            Mat src = Cv2.ImRead(dog,ImreadModes.Grayscale);
+            Mat dst = new Mat();
+
+            Cv2.Sobel(src,dst,MatType.CV_8UC1,1,0,3,1,0,BorderTypes.Reflect101);
+
+            Cv2.ImShow("dst",dst);
+            Cv2.WaitKey(0);
+            Cv2.DestroyAllWindows();
+        }
+
+        private static void ContourDetection()
+        {
+            Mat src = Cv2.ImRead(chess);
+            Mat gray = new Mat();
+            Mat binary = new Mat();
+            Mat morp = new Mat();
+            Mat image = new Mat();
+            Mat dst = src.Clone();
+
+            Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect,new Size(3,3));
+
+            Point[][] contours;
+            HierarchyIndex[] hierarchy;
+
+            Cv2.CvtColor(src,gray,ColorConversionCodes.BGR2GRAY);
+            Cv2.Threshold(gray,binary,230,255,ThresholdTypes.Binary);
+            Cv2.MorphologyEx(binary,morp,MorphTypes.Close,kernel,new Point(-1,-1),2);
+            Cv2.BitwiseNot(morp,image);
+
+            Cv2.FindContours(image,out contours,out hierarchy, RetrievalModes.Tree
+                ,ContourApproximationModes.ApproxTC89KCOS);
+            Cv2.DrawContours(dst,contours,-1,new Scalar(255,0,0),2,LineTypes.AntiAlias,hierarchy,3);
+
+            for (int i = 0; i < contours.Length; i++)
+			{
+                for (int j = 0; j < contours[i].Length; j++)
+			    {
+                    Cv2.Circle(dst,contours[i][j],1,new Scalar(0,0,255),3);
+			    }
+			}
 
             Cv2.ImShow("dst",dst);
             Cv2.WaitKey(0);
